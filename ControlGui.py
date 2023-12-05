@@ -1,8 +1,9 @@
-#import aiohttp
+import aiohttp
 import asyncio
 import tkinter as tk
 from tkinter import *
-from time import sleep
+from PIL import ImageTk, Image
+
 
 #TEST VARIABLES
 class TkinterGui:
@@ -23,32 +24,96 @@ class TkinterGui:
 
         #LEFT FRAME
         self.left_frame = Frame(self.main_frame, highlightbackground = "red", highlightthickness = 2)
-        self.left_frame.place(relwidth = 0.5, relheight = 1, anchor = tk.NW)
+        self.left_frame.place(relwidth = 0.3, relheight = 1, anchor = tk.NW)
 
         #BLANK FRAME
         self.blank_frame = Frame(self.left_frame, highlightbackground = "green", highlightthickness = 2)
-        self.blank_frame.place(relx = 1, relwidth = 0.75, relheight = 1, anchor = tk.NE)
+        self.blank_frame.place(relx = 1, relwidth = 0.5, relheight = 1, anchor = tk.NE)
 
         #CONTROL FRAME
-        self.control_frame = Frame(self.left_frame, highlightbackground = "green", highlightthickness = 2)
-        self.control_frame.place(relwidth = 0.25, relheight = 1, anchor = tk.NW)
+        self.control_frame = Frame(self.left_frame, highlightbackground = "green", highlightthickness = 2, padx=10)
+        self.control_frame.place(relwidth = 0.5, relheight = 1, anchor = tk.NW)
+        
+        #KEY
+        self.key_icon = Image.open("../Icons/key.png")
+        self.keycv = tk.Canvas(self.control_frame)
+        self.keycv.place(rely = 0.025, relwidth = 1, relheight = 0.2, anchor = tk.NW)
+
+        #LOCK
+        self.lock_icon = Image.open("../Icons/lock.png")
+        self.lockcv = tk.Canvas(self.control_frame)
+        self.lockcv.place(rely = 0.275, relwidth = 1, relheight = 0.2, anchor = tk.NW)
+
+        #SEC
+        self.sec_icon = Image.open("../Icons/sec.png")
+        self.seccv = tk.Canvas(self.control_frame)
+        self.seccv.place(rely = 0.525, relwidth = 1, relheight = 0.2, anchor = tk.NW)
+
+        #ABS
+        self.abs_icon = Image.open("../Icons/abs.png")
+        self.abscv = tk.Canvas(self.control_frame)
+        self.abscv.place(rely = 0.775, relwidth = 1, relheight = 0.2, anchor = tk.NW)
+
+        self.abscv.bind('<Configure>', lambda e : self.stretch_image(e))
 
         #RIGHT FRAME
         self.right_frame = Frame(self.main_frame, highlightbackground = "yellow", highlightthickness = 2)
-        self.right_frame.place(relx = 1, relwidth = 0.5, relheight = 1, anchor = tk.NE)
+        self.right_frame.place(relx = 1, relwidth = 0.7, relheight = 1, anchor = tk.NE)
 
         #RADIO FRAME
         self.radio_frame = Frame(self.right_frame, highlightbackground = "blue", highlightthickness = 1)
-        self.radio_frame.place(x = 0, y = 0, relwidth = 1, relheight = 0.1, anchor = tk.NW)
+        self.radio_frame.place(relwidth = 1, relheight = 0.1, anchor = tk.NW)
 
-        self.station = Label(self.radio_frame, text = '-----------', width =20, background = 'black', foreground = 'white', font = ('Small Fonts', 20) )
-        self.next_st = Button(self.radio_frame, text = '>')
+        self.station = Label(self.radio_frame, text = '-----------', width =20, background = 'black', foreground = 'white', font = ('Small Fonts', 20))
         self.prev_st = Button(self.radio_frame, text = '<')
-
-        self.prev_st.grid(row=0, column=0, sticky=tk.W)
-        self.station.grid(row=0, column=1, sticky=tk.W)
-        self.next_st.grid(row=0, column=2, sticky=tk.W)
+        self.next_st = Button(self.radio_frame, text = '>')
+  
+        self.station.place(relx = 0.2, relwidth = 0.6, relheight = 1, anchor = tk.NW)
+        self.prev_st.place(relwidth = 0.2, relheight = 1, anchor = tk.NW)
+        self.next_st.place(relx = 0.8, relwidth = 0.2, relheight = 1, anchor = tk.NW)
         
+        #BLANK FRAME
+        self.blank_frame_1 = Frame(self.right_frame, highlightbackground = "green", highlightthickness = 2)
+        self.blank_frame_1.place(rely = 0.1, relwidth = 1, relheight = 0.1, anchor = tk.NW)
+
+        #DMS FRAME
+        self.dms_frame = Frame(self.right_frame, highlightbackground = "blue", highlightthickness = 1)
+        self.dms_frame.place(rely = 0.2, relwidth = 0.45, relheight = 0.8, anchor = tk.NW)
+
+        #WEATHER FRAME
+        self.weather_frame = Frame(self.right_frame, highlightbackground = "blue", highlightthickness = 1)
+        self.weather_frame.place(relx = 0.55, rely = 0.2, relwidth = 0.45, relheight = 0.8, anchor = tk.NW)
+
+    def stretch_image(self, event):
+        #WINDOW SIZE 
+        width = event.width
+        height = event.height
+        
+        #RESIZED IMAGES
+        global tk_key
+        global tk_lock
+        global tk_sec
+        global tk_abs
+
+        #RESIZE
+        resized_image = self.key_icon.resize((width, height))
+        tk_key = ImageTk.PhotoImage(resized_image)
+
+        resized_image = self.lock_icon.resize((width, height))
+        tk_lock = ImageTk.PhotoImage(resized_image)
+
+        resized_image = self.sec_icon.resize((width, height))
+        tk_sec = ImageTk.PhotoImage(resized_image)
+
+        resized_image = self.abs_icon.resize((width, height))
+        tk_abs = ImageTk.PhotoImage(resized_image)
+
+        #PLACE ON CANVAS
+        self.keycv.create_image(0, 0, image = tk_key, anchor = tk.NW)
+        self.lockcv.create_image(0, 0, image = tk_lock, anchor = tk.NW)
+        self.seccv.create_image(0, 0, image = tk_sec, anchor = tk.NW)
+        self.abscv.create_image(0, 0, image = tk_abs, anchor = tk.NW)
+
 
     def start_main_loop(self):
         self.window.mainloop()
@@ -60,38 +125,53 @@ class InfotainmentSystem:
         #STATION SETTINGS
         self._stations = ['station 1', 'station 2', 'station 3', 'station 4']
         self._sindex = st
-
+        
         #GUI CONFIGURATION
         self._gui = gui
         self._gui.station.config(text = self._stations[self._sindex])
-        self._gui.next_st.config(command = self.next_station)
-        self._gui.prev_st.config(command = self.previous_station)
+        self._gui.next_st.config(command = lambda : asyncio.run(self.next_station()))
+        self._gui.prev_st.config(command = lambda : asyncio.run(self.previous_station()))
 
     def get_current_station(self):
         current_station = self._stations[self._sindex]
         return current_station
     
-    def next_station(self):
-        #ADD IF INDEX <= _STATIONS.LENGHT
-        self._sindex += 1
-        current_station = self.get_current_station()
-        self._gui.station.config(text = current_station)
-        #ADD CLIENT REQUEST TO RADIOHANDLER
+    async def change_station(self):
+        async with aiohttp.ClientSession() as session:
 
-    def previous_station(self):
-        #ADD IF INDEX >= 0
-        self._sindex -= 1
-        current_station = self.get_current_station()
-        self._gui.station.config(text = current_station)
-        #ADD CLIENT REQUEST TO RADIOHANDLER
+            payload = {'station': self.get_current_station()}
+
+            async with session.post(url = 'http://localhost:8080/radio-change/', data = payload) as response:
+
+                print("Status:", response.status)
+                print("Content-type:", response.headers['content-type'])
+
+                html = await response.text()
+                print("Body:", html[:100])
+
+                self._gui.station.config(text = self.get_current_station())
+
+    async def next_station(self):
+        if(self._sindex == len(self._stations) - 1):
+            self._sindex = 0
+        else:
+            self._sindex += 1
+
+        await self.change_station()
+
+    async def previous_station(self):
+        if(self._sindex == 0):
+            self._sindex = len(self._stations) - 1
+        else:
+            self._sindex -= 1
+
+        await self.change_station()
 
 
 #MAIN
 gui = TkinterGui()
 radio = InfotainmentSystem(gui, 0)
 gui.start_main_loop()
-
-
 
 
 
