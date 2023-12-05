@@ -31,30 +31,30 @@ class TkinterGui:
         self.blank_frame.place(relx = 1, relwidth = 0.5, relheight = 1, anchor = tk.NE)
 
         #CONTROL FRAME
-        self.control_frame = Frame(self.left_frame, highlightbackground = "green", highlightthickness = 2, padx=10)
+        self.control_frame = Frame(self.left_frame, highlightbackground = "green", highlightthickness = 2, padx=10, background = '#23281e')
         self.control_frame.place(relwidth = 0.5, relheight = 1, anchor = tk.NW)
         
         #KEY
         self.key_icon = Image.open("../Icons/key.png")
-        self.keycv = tk.Canvas(self.control_frame)
+        self.keycv = tk.Canvas(self.control_frame, background = '#23281e', highlightthickness = 0)
         self.keycv.place(rely = 0.025, relwidth = 1, relheight = 0.2, anchor = tk.NW)
 
         #LOCK
         self.lock_icon = Image.open("../Icons/lock.png")
-        self.lockcv = tk.Canvas(self.control_frame)
+        self.lockcv = tk.Canvas(self.control_frame, background = '#23281e', highlightthickness = 0)
         self.lockcv.place(rely = 0.275, relwidth = 1, relheight = 0.2, anchor = tk.NW)
 
         #SEC
         self.sec_icon = Image.open("../Icons/sec.png")
-        self.seccv = tk.Canvas(self.control_frame)
+        self.seccv = tk.Canvas(self.control_frame, background = '#23281e', highlightthickness = 0)
         self.seccv.place(rely = 0.525, relwidth = 1, relheight = 0.2, anchor = tk.NW)
 
         #ABS
         self.abs_icon = Image.open("../Icons/abs.png")
-        self.abscv = tk.Canvas(self.control_frame)
+        self.abscv = tk.Canvas(self.control_frame, background = '#23281e', highlightthickness = 0)
         self.abscv.place(rely = 0.775, relwidth = 1, relheight = 0.2, anchor = tk.NW)
 
-        self.abscv.bind('<Configure>', lambda e : self.stretch_image(e))
+        self.abscv.bind('<Configure>', lambda e : self.stretch_image(e)) #sus solution
 
         #RIGHT FRAME
         self.right_frame = Frame(self.main_frame, highlightbackground = "yellow", highlightthickness = 2)
@@ -64,7 +64,7 @@ class TkinterGui:
         self.radio_frame = Frame(self.right_frame, highlightbackground = "blue", highlightthickness = 1)
         self.radio_frame.place(relwidth = 1, relheight = 0.1, anchor = tk.NW)
 
-        self.station = Label(self.radio_frame, text = '-----------', width =20, background = 'black', foreground = 'white', font = ('Small Fonts', 20))
+        self.station = Label(self.radio_frame, text = '-----------', width =20, background = '#23281e', foreground = 'white', font = ('Small Fonts', 20))
         self.prev_st = Button(self.radio_frame, text = '<')
         self.next_st = Button(self.radio_frame, text = '>')
   
@@ -123,7 +123,7 @@ class TkinterGui:
 class InfotainmentSystem:
     def __init__(self, gui, st):
         #STATION SETTINGS
-        self._stations = ['station 1', 'station 2', 'station 3', 'station 4']
+        self._stations = ['Radio Station 1', 'Radio Station 2', 'Radio Station 3', 'Radio Station 4', 'Radio Station 5', 'Radio Station 6', 'Radio Station 7']
         self._sindex = st
         
         #GUI CONFIGURATION
