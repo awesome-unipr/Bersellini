@@ -1,6 +1,7 @@
 import aiohttp
 import asyncio
 import tkinter as tk
+from tkinter import font
 from tkinter import *
 from PIL import ImageTk, Image
 
@@ -13,9 +14,11 @@ class TkinterGui:
         self.window.title('Brum Brum GUI')
         self.window.geometry('1200x700')
 
-        """for i in font.families():
-            self.el = ttk.Label(self.window, text = i, font = (i, 15))
-            self.el.pack()"""
+        """
+        for i in font.families():
+            self.el = Label(self.window, text = i, font = (i, 15))
+            self.el.pack()
+        """
 
         #SETTINGS
         #self.settings_frame = Frame(self.window, highlightbackground = "black", highlightthickness = 2)
@@ -24,74 +27,89 @@ class TkinterGui:
         #self.settings_button.place(relx = 0.9, rely = 0.9, relwidth = 0.2, relheight = 0.2, anchor = tk.NE)
 
         #MAIN FRAME
-        self.main_frame = Frame(self.window, highlightbackground = "black", highlightthickness = 2)
+        self.main_frame = Frame(self.window)
         self.main_frame.place(relx = 0.1, rely = 0.1, relwidth = 0.8, relheight = 0.8)
 
         #LEFT FRAME
-        self.left_frame = Frame(self.main_frame, highlightbackground = "red", highlightthickness = 2)
+        self.left_frame = Frame(self.main_frame)
         self.left_frame.place(relwidth = 0.3, relheight = 1, anchor = tk.NW)
 
         #BLANK FRAME
-        self.blank_frame = Frame(self.left_frame, highlightbackground = "green", highlightthickness = 2)
+        self.blank_frame = Frame(self.left_frame)
         self.blank_frame.place(relx = 1, relwidth = 0.5, relheight = 1, anchor = tk.NE)
 
         #CONTROL FRAME
-        self.control_frame = Frame(self.left_frame, highlightbackground = "green", highlightthickness = 2, padx=10, background = '#23281e')
+        self.control_frame = Frame(self.left_frame, background = '#16161d', highlightbackground = '#36454F', highlightthickness = 6, padx=10)
         self.control_frame.place(relwidth = 0.5, relheight = 1, anchor = tk.NW)
         #KEY
         self.key_icon = Image.open("Icons/key.png")
-        self.keycv = tk.Canvas(self.control_frame, background = '#23281e', highlightthickness = 0)
+        self.keycv = tk.Canvas(self.control_frame, background = '#16161d', highlightthickness = 0)
         self.keycv.place(rely = 0.025, relwidth = 1, relheight = 0.2, anchor = tk.NW)
         #LOCK
         self.lock_icon = Image.open("Icons/lock.png")
-        self.lockcv = tk.Canvas(self.control_frame, background = '#23281e', highlightthickness = 0)
+        self.lockcv = tk.Canvas(self.control_frame, background = '#16161d', highlightthickness = 0)
         self.lockcv.place(rely = 0.275, relwidth = 1, relheight = 0.2, anchor = tk.NW)
         #SEC
         self.sec_icon = Image.open("Icons/sec.png")
-        self.seccv = tk.Canvas(self.control_frame, background = '#23281e', highlightthickness = 0)
+        self.seccv = tk.Canvas(self.control_frame, background = '#16161d', highlightthickness = 0)
         self.seccv.place(rely = 0.525, relwidth = 1, relheight = 0.2, anchor = tk.NW)
         #ABS
         self.abs_icon = Image.open("Icons/abs.png")
-        self.abscv = tk.Canvas(self.control_frame, background = '#23281e', highlightthickness = 0)
+        self.abscv = tk.Canvas(self.control_frame, background = '#16161d', highlightthickness = 0)
         self.abscv.place(rely = 0.775, relwidth = 1, relheight = 0.2, anchor = tk.NW)
 
         self.abscv.bind('<Configure>', lambda e : self.stretch_image(e)) #sus solution
 
         #RIGHT FRAME
-        self.right_frame = Frame(self.main_frame, highlightbackground = "yellow", highlightthickness = 2)
+        self.right_frame = Frame(self.main_frame)
         self.right_frame.place(relx = 1, relwidth = 0.7, relheight = 1, anchor = tk.NE)
 
         #RADIO FRAME
-        self.radio_frame = Frame(self.right_frame, highlightbackground = "blue", highlightthickness = 1)
+        self.radio_frame = Frame(self.right_frame, highlightbackground = '#36454F', highlightthickness = 6)
         self.radio_frame.place(relwidth = 1, relheight = 0.1, anchor = tk.NW)
 
-        self.station = Label(self.radio_frame, text = '-----------', width = 20, background = '#23281e', foreground = 'white', font = ('Small Fonts', 20))
-        self.prev_st = Button(self.radio_frame, text = '<')
-        self.next_st = Button(self.radio_frame, text = '>')
+        self.station = Label(self.radio_frame, text = '-----------', bg = '#16161d', fg = 'white', font = ('Small Fonts', 20))
+        self.prev_st = Button(self.radio_frame, text = '<', bg = '#36454F', fg = 'white', font = ('System', 20))
+        self.next_st = Button(self.radio_frame, text = '>', bg = '#36454F', fg = 'white', font = ('System', 20))
   
         self.station.place(relx = 0.2, relwidth = 0.6, relheight = 1, anchor = tk.NW)
         self.prev_st.place(relwidth = 0.2, relheight = 1, anchor = tk.NW)
         self.next_st.place(relx = 0.8, relwidth = 0.2, relheight = 1, anchor = tk.NW)
         
         #BLANK FRAME
-        self.blank_frame_1 = Frame(self.right_frame, highlightbackground = "green", highlightthickness = 2)
+        self.blank_frame_1 = Frame(self.right_frame)
         self.blank_frame_1.place(rely = 0.1, relwidth = 1, relheight = 0.1, anchor = tk.NW)
 
         #DMS FRAME
-        self.dms_frame = Frame(self.right_frame, highlightbackground = "blue", highlightthickness = 1)
+        self.dms_bg = '#16161d'
+
+        self.dms_frame = Frame(self.right_frame, bg = self.dms_bg, highlightbackground = "#36454F", highlightthickness = 6)
         self.dms_frame.place(rely = 0.2, relwidth = 0.45, relheight = 0.8, anchor = tk.NW)
 
+        self.state_frame = [0 for i in range(10)]
+
+        self.state = [0 for i in range(10)]
+
+        for i in range(10):
+            self.state_frame[i] = Frame(self.dms_frame, bg = self.dms_bg, highlightbackground = "#36454F", highlightthickness = 2)
+            self.state_frame[i].place(relx = 0, rely = 0.1 * i, relwidth = 1, relheight = 0.1, anchor = tk.NW)
+
+            self.state[i] = Label(self.state_frame[i], text = 'Pilot State', bg = self.dms_bg, fg = '#2b2b30', font = ('Small Fonts', 14))
+
+            self.state[i].place(relx = 0.3, rely = 0, relwidth = 0.5, relheight = 1, anchor = tk.NW)
+
         #WEATHER FRAME
-        self.weather_frame = Frame(self.right_frame, highlightbackground = "blue", highlightthickness = 1)
+        self.weather_bg = '#4848ff'
+        self.weather_frame = Frame(self.right_frame, background = self.weather_bg, highlightbackground = "#36454F", highlightthickness = 6)
         self.weather_frame.place(relx = 0.55, rely = 0.2, relwidth = 0.45, relheight = 0.8, anchor = tk.NW)
 
-        self.current_weather_frame = Frame(self.weather_frame, highlightbackground = "black", highlightthickness = 1)
+        self.current_weather_frame = Frame(self.weather_frame, bg = self.weather_bg, highlightbackground = "#36454F", highlightthickness = 3, padx = 5, pady = 5)
         self.current_weather_frame.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.3, anchor = tk.NW)
 
-        self.current_city = Label(self.current_weather_frame, text = 'Placeholder', foreground = 'black', font = ('Small Fonts', 20))
-        self.current_time = Label(self.current_weather_frame, text = '00:00', foreground = 'black', font = ('Small Fonts', 20))
-        self.current_weather = Label(self.current_weather_frame, text = '--------', foreground = 'black', font = ('Small Fonts', 20))
-        self.current_temperature = Label(self.current_weather_frame, text = '----', foreground = 'black', font = ('Small Fonts', 20))
+        self.current_city = Label(self.current_weather_frame, text = 'Placeholder', bg = self.weather_bg, fg = 'white', font = ('Small Fonts', 20))
+        self.current_time = Label(self.current_weather_frame, text = '00:00', bg = self.weather_bg, fg = 'white', font = ('Small Fonts', 20))
+        self.current_weather = Label(self.current_weather_frame, text = '--------', bg = self.weather_bg, fg = 'white', font = ('Small Fonts', 20))
+        self.current_temperature = Label(self.current_weather_frame, text = '----', bg = self.weather_bg, fg = 'white', font = ('Small Fonts', 20))
 
         self.current_city.place(relx = 0, rely = 0, relwidth = 0.5, relheight = 0.5, anchor = tk.NW)
         self.current_time.place(relx = 0.5, rely = 0, relwidth = 0.5, relheight = 0.5, anchor = tk.NW)
@@ -105,16 +123,16 @@ class TkinterGui:
         self.temperature = [0 for i in range(7)]
 
         for i in range(7):
-            self.forecast_frame[i] = Frame(self.weather_frame, highlightbackground = "black", highlightthickness = 1)
+            self.forecast_frame[i] = Frame(self.weather_frame, bg = self.weather_bg, highlightbackground = "#36454F", highlightthickness = 2)
             self.forecast_frame[i].place(relx = 0, rely = 0.3 + 0.1 * i, relwidth = 1, relheight = 0.1, anchor = tk.NW)
 
-            self.time[i] = Label(self.forecast_frame[i], text = '00:00', foreground = 'black', font = ('Small Fonts', 14))
-            self.weather[i] = Label(self.forecast_frame[i], text = '--------', foreground = 'black', font = ('Small Fonts', 14))
-            self.temperature[i] = Label(self.forecast_frame[i], text = '----', foreground = 'black', font = ('Small Fonts', 14))
+            self.time[i] = Label(self.forecast_frame[i], text = '00:00', bg = self.weather_bg, fg = 'white', font = ('Small Fonts', 14))
+            self.weather[i] = Label(self.forecast_frame[i], text = '--------', bg = self.weather_bg, fg = 'white', font = ('Small Fonts', 14))
+            self.temperature[i] = Label(self.forecast_frame[i], text = '----', bg = self.weather_bg, fg = 'white', font = ('Small Fonts', 14))
 
-            self.time[i].place(relx = 0.0, rely = 0, relwidth = 0.2, relheight = 0.5, anchor = tk.NW)
-            self.weather[i].place(relx = 0.4, rely = 0.5, relwidth = 0.4, relheight = 0.5, anchor = tk.NW)
-            self.temperature[i].place(relx = 0.8, rely = 0.5, relwidth = 0.2, relheight = 0.5, anchor = tk.NW)
+            self.time[i].place(relx = 0, rely = 0, relwidth = 0.2, relheight = 1, anchor = tk.NW)
+            self.weather[i].place(relx = 0.4, rely = 0, relwidth = 0.4, relheight = 1, anchor = tk.NW)
+            self.temperature[i].place(relx = 0.8, rely = 0, relwidth = 0.2, relheight = 1, anchor = tk.NW)
 
     def stretch_image(self, event):
         #WINDOW SIZE 
@@ -203,8 +221,11 @@ class WeatherInformation:
     def __init__(self, gui):
         #GUI CONFIGURATION
         self._gui = gui
-        self.get_current_weather()
-        self.get_forecast_weather()
+        self._gui.current_city.config(text = 'Parma')
+        self._gui.current_time.config(text = '10:00')
+        self._gui.current_weather.config(text = 'Sunny')
+        self._gui.current_temperature.config(text = '20 °C')
+        
 
     async def get_current_weather(self):
         """ DA CAMBIARE UN PO'
@@ -221,9 +242,9 @@ class WeatherInformation:
                 self._gui.station.config(text = self.get_current_station())
         """
         current_city = 'Parma'
-        current_time = '10:30'
+        current_time = '10:00'
         current_weather = 'Sunny'
-        current_temperature = '2 *C'
+        current_temperature = '20 °C'
 
         self._gui.current_city.config(text = current_city)
         self._gui.current_time.config(text = current_time)
@@ -242,15 +263,23 @@ class WeatherInformation:
             # display default icon
             img = ''
 
-    async def get_forecast_weather(self):
+    def get_forecast_weather(self):
         # pain
         # ciclo for vvv
-        self._gui.forecast_frame_1.config
-        return 0
+        time = '10:00'
+        weather = 'Sunny'
+        temperature = '20 °C'
+        
+        for i in range(7):
+            self._gui.time[i].config(text = time)
+            self._gui.weather[i].config(text = weather)
+            self._gui.temperature[i].config(text = temperature)
 
 #MAIN
 gui = TkinterGui()
 radio = InfotainmentSystem(gui, 0)
+meteo = WeatherInformation(gui)
+meteo.get_forecast_weather()
 gui.start_main_loop()
 
 
